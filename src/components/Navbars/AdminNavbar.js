@@ -1,12 +1,19 @@
 /*eslint-disable*/
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
 import UserDropdown from "components/Dropdowns/UserDropdown.js";
 
-export default function Sidebar() {
+export default function AdminNavbar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
+  const location = useLocation();
+
+  // Helper function to check if a route is active
+  const isActive = (path) => {
+    return location.pathname === path || location.pathname.startsWith(path);
+  };
+
   return (
     <>
       <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6">
@@ -75,18 +82,18 @@ export default function Sidebar() {
               <li className="items-center">
                 <Link
                   className={
-                    "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/dashboard") !== -1
-                      ? "text-lightBlue-500 hover:text-lightBlue-600"
-                      : "text-blueGray-700 hover:text-blueGray-500")
+                    "text-xs uppercase py-3 font-bold block px-3 rounded-lg transition-all duration-200 " +
+                    (isActive("/admin/dashboard")
+                      ? "text-white bg-lightBlue-500 shadow-md"
+                      : "text-blueGray-700 hover:text-lightBlue-500 hover:bg-lightBlue-50")
                   }
                   to="/admin/dashboard"
                 >
                   <i
                     className={
                       "fas fa-tv mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/dashboard") !== -1
-                        ? "opacity-75"
+                      (isActive("/admin/dashboard")
+                        ? "text-white"
                         : "text-blueGray-300")
                     }
                   ></i>{" "}
@@ -97,18 +104,18 @@ export default function Sidebar() {
               <li className="items-center">
                 <Link
                   className={
-                    "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/our-impacts") !== -1
-                      ? "text-lightBlue-500 hover:text-lightBlue-600"
-                      : "text-blueGray-700 hover:text-blueGray-500")
+                    "text-xs uppercase py-3 font-bold block px-3 rounded-lg transition-all duration-200 " +
+                    (isActive("/admin/our-impacts")
+                      ? "text-white bg-lightBlue-500 shadow-md"
+                      : "text-blueGray-700 hover:text-lightBlue-500 hover:bg-lightBlue-50")
                   }
                   to="/admin/our-impacts"
                 >
                   <i
                     className={
                       "fas fa-heart mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/our-impacts") !== -1
-                        ? "opacity-75"
+                      (isActive("/admin/our-impacts")
+                        ? "text-white"
                         : "text-blueGray-300")
                     }
                   ></i>{" "}
@@ -119,18 +126,18 @@ export default function Sidebar() {
               <li className="items-center">
                 <Link
                   className={
-                    "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/about-us") !== -1
-                      ? "text-lightBlue-500 hover:text-lightBlue-600"
-                      : "text-blueGray-700 hover:text-blueGray-500")
+                    "text-xs uppercase py-3 font-bold block px-3 rounded-lg transition-all duration-200 " +
+                    (isActive("/admin/about-us")
+                      ? "text-white bg-lightBlue-500 shadow-md"
+                      : "text-blueGray-700 hover:text-lightBlue-500 hover:bg-lightBlue-50")
                   }
                   to="/admin/about-us"
                 >
                   <i
                     className={
                       "fas fa-users mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/about-us") !== -1
-                        ? "opacity-75"
+                      (isActive("/admin/about-us")
+                        ? "text-white"
                         : "text-blueGray-300")
                     }
                   ></i>{" "}
@@ -141,18 +148,18 @@ export default function Sidebar() {
               <li className="items-center">
                 <Link
                   className={
-                    "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/landing") !== -1
-                      ? "text-lightBlue-500 hover:text-lightBlue-600"
-                      : "text-blueGray-700 hover:text-blueGray-500")
+                    "text-xs uppercase py-3 font-bold block px-3 rounded-lg transition-all duration-200 " +
+                    (isActive("/admin/landing")
+                      ? "text-white bg-lightBlue-500 shadow-md"
+                      : "text-blueGray-700 hover:text-lightBlue-500 hover:bg-lightBlue-50")
                   }
                   to="/admin/landing"
                 >
                   <i
                     className={
                       "fas fa-home mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/landing") !== -1
-                        ? "opacity-75"
+                      (isActive("/admin/landing")
+                        ? "text-white"
                         : "text-blueGray-300")
                     }
                   ></i>{" "}

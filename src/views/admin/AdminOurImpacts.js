@@ -6,28 +6,28 @@ export default function AdminOurImpacts() {
     title: "",
     description: "",
     value: "",
-    icon: ""
+    icon: "",
   });
 
   const handleImageUpload = (event) => {
     const files = Array.from(event.target.files);
-    const newImages = files.map(file => ({
+    const newImages = files.map((file) => ({
       id: Date.now() + Math.random(),
       file: file,
       url: URL.createObjectURL(file),
-      name: file.name
+      name: file.name,
     }));
     setImages([...images, ...newImages]);
   };
 
   const removeImage = (id) => {
-    setImages(images.filter(img => img.id !== id));
+    setImages(images.filter((img) => img.id !== id));
   };
 
   const handleInputChange = (e) => {
     setImpactData({
       ...impactData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -43,20 +43,10 @@ export default function AdminOurImpacts() {
       <div className="flex flex-wrap">
         <div className="w-full px-4">
           <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
-            <div className="rounded-t mb-0 px-4 py-3 border-0">
-              <div className="flex flex-wrap items-center">
-                <div className="relative w-full px-4 max-w-full flex-grow flex-1">
-                  <h3 className="font-semibold text-base text-blueGray-700">
-                    Manage Our Impacts Content
-                  </h3>
-                </div>
-              </div>
-            </div>
-
             <div className="block w-full overflow-x-auto px-4 py-4">
               {/* Impact Data Form */}
               <div className="mb-6">
-                <h4 className="text-lg font-semibold mb-4">Impact Information</h4>
+                <h4 className="text-lg font-semibold mb-4">Impact Details</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-blueGray-600 text-xs font-bold mb-2">
@@ -141,7 +131,9 @@ export default function AdminOurImpacts() {
               {/* Display Uploaded Images */}
               {images.length > 0 && (
                 <div className="mb-6">
-                  <h4 className="text-lg font-semibold mb-4">Uploaded Images</h4>
+                  <h4 className="text-lg font-semibold mb-4">
+                    Uploaded Images
+                  </h4>
                   <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
                     {images.map((image) => (
                       <div key={image.id} className="relative">
