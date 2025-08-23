@@ -47,14 +47,11 @@ export default function Donate() {
 
   // Function : Donate button click handler 
   const handleButtonClick = (type) => {
-
-    
-      // Handle general donation logic
-      if (type === 'general') {
-        navigate('/donate/general'); // Redirect to general donation page or show modal
-      } else if (type === 'specific') {
-        navigate('/donate/specific'); // Redirect to specific project donation page or show modal
-      }
+    if (type === 'general') {
+      navigate('/donate/general'); // Redirect to general donation page or show modal
+    } else if (type === 'specific') {
+      navigate('/donate/specific'); // Redirect to specific project donation page or show modal
+    }
   };
 
   // Function : View More button
@@ -122,23 +119,39 @@ export default function Donate() {
         <section className="py-16">
           <div className="mx-auto px-4">
             <div className="bg-white rounded-lg shadow p-8">
-              
-              {/* Donate by Ban transfer */}
-              <h2 className="text-2xl font-semibold mb-4">Donate by Bank Transfer</h2>
-              <p className="mb-4">
-                Account Name: {accountName}<br />
-                Bank Address: {bankAddress}<br />
-                Bank Code: {bankCode}<br />
-                Account Number: {accountNumber}
-              </p>
+              <h2 className="text-center text-2xl font-bold mb-12">Ways to Donate</h2>
+              <div className="flex flex-col md:flex-row justify-between">
+                {/* Donate by Ban transfer */}
+                <div>
+                  <h2 className="text-center text-2xl font-semibold mb-4">Donate by Bank Transfer</h2>
+                  <p className="mb-4">
+                    Account Name: {accountName}<br />
+                    Bank Address: {bankAddress}<br />
+                    Bank Code: {bankCode}<br />
+                    Account Number: {accountNumber}
+                  </p>
+                </div>
 
-              {/* Donate by FPS */}
-              <h2 className="text-2xl font-semibold mb-4">Donate by FPS</h2>
-              <p className="mb-4">
-                Please use the following details for FPS donations:<br />
-                <strong>FPS ID:</strong> 12345678<br />
-                <strong>FPS QR Code:</strong> <img src="https://via.placeholder.com/150" alt="FPS QR Code" />
-              </p>
+                {/* Donate by FPS */}
+                <div>
+                  <h2 className="text-center text-2xl font-semibold mb-4">Donate by FPS</h2>
+                  <p className="mb-4">
+                    Please use the following details for FPS donations:<br />
+                    <strong>FPS ID:</strong> 12345678<br />
+                    <strong>FPS QR Code:</strong> <img src="https://via.placeholder.com/150" alt="FPS QR Code" />
+                  </p>
+                </div>
+
+                {/* Donate by Alipay / Credit Card */}
+                <div>
+                  <h2 className="text-center text-2xl font-semibold mb-4">Donate by Alipay / Credit Card</h2>
+                  <p className="mb-4">
+                    Please use the following details for FPS donations:<br />
+                    <strong>FPS ID:</strong> 12345678<br />
+                    <strong>FPS QR Code:</strong> <img src="https://via.placeholder.com/150" alt="FPS QR Code" />
+                  </p>
+                </div>
+              </div>
 
               {/* Buttons to donate */}
               <div className="flex justify-center space-x-4 mt-6 gap-20">
