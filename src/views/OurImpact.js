@@ -1,40 +1,60 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "components/Navbars/AuthNavbar.js";
 import Footer from "components/Footers/Footer.js";
 
-const impacts = [
-  {
-    title: "Children Supported",
-    value: "2,500+",
-    description:
-      "Children have received educational support and resources through our programs.",
-    icon: "fas fa-child",
-    color: "bg-yellow-400",
-  },
-  {
-    title: "Meals Provided",
-    value: "50,000+",
-    description: "Nutritious meals distributed to families in need.",
-    icon: "fas fa-utensils",
-    color: "bg-green-400",
-  },
-  {
-    title: "Volunteers Engaged",
-    value: "800+",
-    description: "Community volunteers actively making a difference.",
-    icon: "fas fa-hands-helping",
-    color: "bg-blue-400",
-  },
-  {
-    title: "Campaigns Completed",
-    value: "35",
-    description: "Successful charity campaigns run since our founding.",
-    icon: "fas fa-bullhorn",
-    color: "bg-pink-400",
-  },
-];
+import TestimonialSection from "./OurImpact/TestimonialSection";
+import DonationSection from "./OurImpact/DonationSection";
+import DiariesSection from "./OurImpact/Diaries";
 
 export default function OurImpact() {
+  const [impacts, setImpacts] = useState([]);
+
+  useEffect(() => {
+    // Load impacts from localStorage
+    const savedImpacts = localStorage.getItem("projectReachImpacts");
+    if (savedImpacts) {
+      setImpacts(JSON.parse(savedImpacts));
+    } else {
+      // Fallback to default impacts
+      const defaultImpacts = [
+        {
+          id: 1,
+          title: "Children Supported",
+          value: "2,500+",
+          description:
+            "Children have received educational support and resources through our programs.",
+          icon: "fas fa-child",
+          color: "bg-yellow-400",
+        },
+        {
+          id: 2,
+          title: "Meals Provided",
+          value: "50,000+",
+          description: "Nutritious meals distributed to families in need.",
+          icon: "fas fa-utensils",
+          color: "bg-green-400",
+        },
+        {
+          id: 3,
+          title: "Volunteers Engaged",
+          value: "800+",
+          description: "Community volunteers actively making a difference.",
+          icon: "fas fa-hands-helping",
+          color: "bg-blue-400",
+        },
+        {
+          id: 4,
+          title: "Campaigns Completed",
+          value: "35",
+          description: "Successful charity campaigns run since our founding.",
+          icon: "fas fa-bullhorn",
+          color: "bg-pink-400",
+        },
+      ];
+      setImpacts(defaultImpacts);
+    }
+  }, []);
+
   return (
     <>
       <Navbar transparent />
@@ -84,24 +104,17 @@ export default function OurImpact() {
                 </div>
               ))}
             </div>
-            <div className="max-w-2xl mx-auto text-center">
-              <h2 className="text-2xl font-bold mb-4">
-                Together, We Make a Difference
-              </h2>
-              <p className="text-blueGray-600 mb-6">
-                Every donation, every volunteer hour, and every campaign helps us
-                reach more children and families in need. Thank you for being part
-                of our journey!
-              </p>
-              <a
-                href="/donate"
-                className="bg-lightBlue-500 text-white px-6 py-3 rounded font-bold shadow hover:bg-lightBlue-600 transition"
-              >
-                Donate Now
-              </a>
-            </div>
           </div>
         </section>
+
+        {/* Stories */}
+        <DiariesSection />
+
+        {/* Testimonials */}
+        <TestimonialSection />
+
+        {/* Donation */}
+        <DonationSection />
       </main>
       <Footer />
     </>
