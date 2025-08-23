@@ -1,11 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Navbar from "components/Navbars/AuthNavbar.js";
 import Footer from "components/Footers/Footer.js";
-import { DonationTypeStep } from "components/Steps/donationSteps";
-import { AmountTypeStep } from "components/Steps/donationSteps";
-import { YourDetailsStep } from "components/Steps/donationSteps";
-import { PaymentMethodStep } from "components/Steps/donationSteps";
-import { ReviewStep } from "components/Steps/donationSteps";
+import { DonationTypeStep, AmountTypeStep, YourDetailsStep, PaymentMethodStep, ReviewStep } from "components/Steps/donationSteps";
+import donationSuccessAlert from "components/Alert/donationSuccessAlert";
 
 // Simple fade animation using Tailwind
 const Fade = ({ show, children }) => (
@@ -109,6 +108,9 @@ const steps = [
 
 
 export default function DonateGeneral() {
+
+    const navigate = useNavigate();
+
     const [step, setStep] = useState(0);
     const [donationType, setDonationType] = useState("");
     const [amount, setAmount] = useState("");
@@ -135,13 +137,13 @@ export default function DonateGeneral() {
     };
 
     const handleSubmit = (e) => {
-        e.preventDefault();
-        setAnimating(true);
-        setTimeout(() => {
-            setStep(steps.length);
-            setAnimating(false);
-        }, 400);
-    };
+            e.preventDefault();
+    
+            // Alert Confirmation
+            donationSuccessAlert();
+            
+            navigate("/donate");
+        };
 
     const renderStep = () => {
         switch (steps[step].component) {
@@ -200,7 +202,7 @@ export default function DonateGeneral() {
     return (
         <>
         <Navbar transparent />
-        <main className="bg-lightblue-20 min-h-screen flex flex-col items-center justify-center">
+        <main className="bg-blue-500 min-h-screen flex flex-col items-center justify-center py-12">
             <div className="w-full max-w-lg mx-auto mt-12 mb-12">
             <div className="bg-white rounded-lg shadow-lg p-8">
                 {/* Stepper */}

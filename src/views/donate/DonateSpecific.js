@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "components/Navbars/AuthNavbar.js";
 import Footer from "components/Footers/Footer.js";
+
+import { ChooseDistrictSchoolStep, DonationTypeStep, AmountTypeStep, YourDetailsStep, PaymentMethodStep, ReviewStep } from "components/Steps/donationSteps";
+import { useNavigate } from "react-router-dom";
+import donationSuccessAlert from "components/Alert/donationSuccessAlert";
 
 // Simple fade animation using Tailwind
 const Fade = ({ show, children }) => (
@@ -11,31 +15,43 @@ const Fade = ({ show, children }) => (
   </div>
 );
 
-const districts = [
-    { 
-        name: "Central and Western",
-        image : "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-    },
-    { 
-        name: "Eastern",
-        image : "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-    },
-    { 
-        name: "Islands",
-        image : "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-    },
-    { 
-        name: "North",
-        image : "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-    },
-]
+const districtsData = [
+  {
+    name: "Central & Western",
+    image: "https://source.unsplash.com/400x300/?hongkong,central",
+    description: "A vibrant district in Hong Kong with a mix of business and culture.",
+  },
+  {
+    name: "Eastern",
+    image: "https://source.unsplash.com/400x300/?hongkong,eastern",
+    description: "Known for its residential areas and beautiful waterfront.",
+  },
+  {
+    name: "Central & Western",
+    image: "https://source.unsplash.com/400x300/?hongkong,central",
+    description: "A vibrant district in Hong Kong with a mix of business and culture.",
+  },
+  {
+    name: "Eastern",
+    image: "https://source.unsplash.com/400x300/?hongkong,eastern",
+    description: "Known for its residential areas and beautiful waterfront.",
+  },
+];
 
-const schools = [
-  "Happy Kids Kindergarten",
-  "Sunshine Kindergarten",
-  "Rainbow Kindergarten",
-  "Little Stars Kindergarten",
-  "Future Leaders Kindergarten",
+const schoolsData = [
+  {
+    name: "Happy Kids Kindergarten",
+    image: "https://source.unsplash.com/400x300/?kindergarten,happy",
+    description: "A nurturing environment for early childhood education.",
+    district: "Central & Western",
+  },
+  {
+    name: "Sunshine Kindergarten",
+    image: "https://source.unsplash.com/400x300/?kindergarten,sunshine",
+    description: "Fostering creativity and growth for young learners.",
+    district: "Eastern",
+  },
+  // ...add more schools as needed
 ];
 
 const paymentMethods = [
@@ -77,14 +93,16 @@ const paymentMethods = [
 
 const steps = [
     {
-        title: "Choose District / School",
+        component: "ChooseDistrictSchoolStep",
+        title: "Choose District and School",
         content: (
         <>
-            <p className="mb-4">Select the district(s) and school(s) you'd like to sponsor:</p>
+            <p className="mb-4">Select the district and school you want to support:</p>
         </>
         ),
     },
     {
+        component : "DonationTypeStep",
         title: "Choose Donation Type",
         content: (
         <>
@@ -98,6 +116,7 @@ const steps = [
         ],
     },
     {
+        component: "AmountTypeStep",
         title: "Select Amount",
         content: (
         <>
@@ -106,6 +125,7 @@ const steps = [
         ),
     },
     {
+        component: "YourDetailsStep",
         title: "Your Details",
         content: (
         <>
@@ -114,6 +134,7 @@ const steps = [
         ),
     },
     {
+        component: "PaymentMethodStep",
         title: "Payment Method",
         content: (
         <>
@@ -122,6 +143,7 @@ const steps = [
         ),
     },
     {
+        component: "ReviewStep",
         title: "Review & Confirm",
         content: (
         <>
@@ -131,9 +153,10 @@ const steps = [
     },
 ];
 
+export default function DonateSpecific() {
+    
+    const navigate = useNavigate();
 
-
-export default function DonateGeneral() {
     const [step, setStep] = useState(0);
     const [selectedDistricts, setSelectedDistricts] = useState([]);
     const [selectedSchools, setSelectedSchools] = useState([]);
@@ -161,38 +184,113 @@ export default function DonateGeneral() {
         }, 400);
     };
 
-    const handleDistrictChange = (e) => {
-        const value = e.target.value;
+    // Handle district selection (multi-select)
+    const handleDistrictChange = (districtName) => {
         setSelectedDistricts((prev) =>
-        prev.includes(value)
-            ? prev.filter((d) => d !== value)
-            : [...prev, value]
+            prev.includes(districtName)
+                ? prev.filter((d) => d !== districtName)
+                : [...prev, districtName]
         );
     };
 
-    const handleSchoolChange = (e) => {
-        const value = e.target.value;
+     // Handle school selection (multi-select)
+    const handleSchoolChange = (schoolName) => {
         setSelectedSchools((prev) =>
-        prev.includes(value)
-            ? prev.filter((s) => s !== value)
-            : [...prev, value]
+            prev.includes(schoolName)
+                ? prev.filter((s) => s !== schoolName)
+                : [...prev, schoolName]
         );
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setAnimating(true);
-        setTimeout(() => {
-            setStep(steps.length);
-            setAnimating(false);
-        }, 400);
+
+        // Alert Confirmation
+        donationSuccessAlert();
+        
+        navigate("/donate");
     };
+
+    const redirectToStory = (e, type, place) => {
+        e.stopPropagation();
+        navigate(`/${type}}/${encodeURIComponent(place.name)}`);
+    };
+
+
+    const renderStep = () => {
+        switch (steps[step].component) {
+            case "ChooseDistrictSchoolStep":
+                return (
+                    <ChooseDistrictSchoolStep
+                        step={steps[step]}
+                        districtsData={districtsData}
+                        schoolsData={schoolsData}
+                        selectedDistricts={selectedDistricts}
+                        selectedSchools={selectedSchools}
+                        handleDistrictChange={handleDistrictChange}
+                        handleSchoolChange={handleSchoolChange}
+                        redirectToStory={redirectToStory}
+                    />
+                );
+            case "DonationTypeStep":
+                return (
+                    <DonationTypeStep
+                        step={steps[step]}
+                        donationType={donationType}
+                        setDonationType={setDonationType}
+                    />
+                );
+            case "AmountTypeStep":
+                return (
+                    <AmountTypeStep
+                    step={steps[step]}
+                    amount={amount}
+                    setAmount={setAmount}
+                    />
+                );
+            case "YourDetailsStep":
+                return (
+                    <YourDetailsStep
+                    step={steps[step]}
+                    name={name}
+                    email={email}
+                    setName={setName}
+                    setEmail={setEmail}
+                    />
+                );
+            case "PaymentMethodStep":
+                return (
+                    <PaymentMethodStep
+                    step={steps[step]}
+                    paymentMethods={paymentMethods}
+                    setPaymentMethod={setPaymentMethod}
+                    paymentMethod={paymentMethod}
+                    />
+                );
+            case "ReviewStep":
+                return (
+                    <ReviewStep
+                        step={steps[step]}
+                        selectedDistricts={selectedDistricts}
+                        selectedSchools={selectedSchools}
+                        donationType={donationType}
+                        amount={amount}
+                        name={name}
+                        email={email}
+                        paymentMethod={paymentMethod}
+                        paymentMethods={paymentMethods}
+                    />
+            );
+            default:
+                return <div>Unknown step</div>;
+        }
+    }
 
     return (
         <>
         <Navbar transparent />
-        <main className="bg-lightblue-20 min-h-screen flex flex-col items-center justify-center">
-            <div className="w-full max-w-lg mx-auto mt-12 mb-12">
+        <main className="bg-blue-500 min-h-screen flex flex-col items-center justify-center py-12">
+            <div className="w-full max-w-5xl mx-auto mt-12 mb-12">
             <div className="bg-white rounded-lg shadow-lg p-8">
                 {/* Stepper */}
                 <div className="flex justify-between mb-8">
@@ -215,110 +313,8 @@ export default function DonateGeneral() {
                 {/* Step Content */}
                 <form onSubmit={handleSubmit}>
                     <Fade show={!animating}>
-                        {step === 0 && (
-                        <div>
-                            {steps[0].content}
-                            <div className="flex flex-col gap-4">
-                            {steps[0].options.map((opt) => (
-                                <button
-                                key={opt.value}
-                                type="button"
-                                className={`py-3 px-6 rounded-lg border transition-all duration-300
-                                    ${donationType === opt.value
-                                    ? "bg-blue-500 text-white border-blue-500 scale-105"
-                                    : "bg-blueGray-50 text-blueGray-700 border-blueGray-200 hover:bg-blue-100"}
-                                `}
-                                onClick={() => setDonationType(opt.value)}
-                                >
-                                {opt.label}
-                                </button>
-                            ))}
-                            </div>
-                        </div>
-                        )}
-
-                        {step === 1 && (
-                        <div>
-                            {steps[1].content}
-                            <input
-                            type="number"
-                            min="1"
-                            required
-                            value={amount}
-                            onChange={(e) => setAmount(e.target.value)}
-                            className="w-full px-4 py-3 rounded-lg border border-blueGray-200 focus:border-blue-500 focus:outline-none mb-4 transition-all duration-300"
-                            placeholder="Amount (HKD)"
-                            />
-                        </div>
-                        )}
-
-                        {step === 2 && (
-                            <div>
-                                {steps[2].content}
-                                <input
-                                type="text"
-                                required
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                                className="w-full px-4 py-3 rounded-lg border border-blueGray-200 focus:border-blue-500 focus:outline-none mb-4 transition-all duration-300"
-                                placeholder="Your Name"
-                                />
-                                <input
-                                type="email"
-                                required
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                className="w-full px-4 py-3 rounded-lg border border-blueGray-200 focus:border-blue-500 focus:outline-none mb-4 transition-all duration-300"
-                                placeholder="Your Email"
-                                />
-                            </div>
-                        )}
-
-                        {step === 3 && (
-                            <div>
-                                {steps[3].content}
-                                <div className="flex flex-col gap-4">
-                                {paymentMethods.map((method) => (
-                                    <button
-                                    key={method.value}
-                                    type="button"
-                                    className={`py-3 px-6 rounded-lg border transition-all duration-300 text-left
-                                        ${paymentMethod === method.value
-                                        ? "bg-blue-500 text-white border-blue-500 scale-105"
-                                        : "bg-blueGray-50 text-blueGray-700 border-blueGray-200 hover:bg-blue-100"}
-                                    `}
-                                    onClick={() => setPaymentMethod(method.value)}
-                                    >
-                                    <span className="font-semibold">{method.label}</span>
-                                    {paymentMethod === method.value && method.details}
-                                    </button>
-                                ))}
-                                </div>
-                            </div>
-                        )}
-
-                        {step === 4 && (
-                            <div>
-                                {steps[4].content}
-                                <div className="mb-4">
-                                <div className="font-semibold">Donation Type:</div>
-                                <div className="mb-2">{donationType}</div>
-                                <div className="font-semibold">Amount:</div>
-                                <div className="mb-2">{amount} HKD</div>
-                                <div className="font-semibold">Name:</div>
-                                <div className="mb-2">{name}</div>
-                                <div className="font-semibold">Email:</div>
-                                <div className="mb-2">{email}</div>
-                                <div className="font-semibold">Payment Method:</div>
-                                <div className="mb-2">
-                                    {paymentMethods.find((m) => m.value === paymentMethod)?.label}
-                                </div>
-                                <div>
-                                    {paymentMethods.find((m) => m.value === paymentMethod)?.details}
-                                </div>
-                                </div>
-                            </div>
-                        )}
+                        
+                        {renderStep()}
 
                         {step === steps.length && (
                             <div className="text-center py-12">
@@ -349,20 +345,22 @@ export default function DonateGeneral() {
                             <button
                             type="button"
                             className={`px-6 py-2 rounded-lg font-bold transition-all duration-300 ${
-                                (step === 0 && !donationType) ||
-                                (step === 1 && !amount) ||
-                                (step === 2 && (!name || !email)) ||
-                                (step === 3 && !paymentMethod) ||
+                                (step === 0 && (!selectedSchools || !selectedDistricts)) ||
+                                (step === 1 && !donationType) ||
+                                (step === 2 && !amount) ||
+                                (step === 3 && (!name || !email)) ||
+                                (step === 4 && !paymentMethod) ||
                                 animating
                                 ? "bg-blueGray-200 text-blueGray-400 cursor-not-allowed"
                                 : "bg-blue-500 text-white hover:bg-blue-600"
                             }`}
                             onClick={nextStep}
                             disabled={
-                                (step === 0 && !donationType) ||
-                                (step === 1 && !amount) ||
-                                (step === 2 && (!name || !email)) ||
-                                (step === 3 && !paymentMethod) ||
+                                (step === 0 && (!selectedSchools || !selectedDistricts)) ||
+                                (step === 1 && !donationType) ||
+                                (step === 2 && !amount) ||
+                                (step === 3 && (!name || !email)) ||
+                                (step === 4 && !paymentMethod) ||
                                 animating
                             }
                             >
@@ -370,15 +368,15 @@ export default function DonateGeneral() {
                             </button>
                         ) : (
                             <button
-                            type="submit"
-                            className={`px-6 py-2 rounded-lg font-bold transition-all duration-300 ${
-                                animating
-                                ? "bg-blueGray-200 text-blueGray-400 cursor-not-allowed"
-                                : "bg-green-500 text-white hover:bg-green-600"
-                            }`}
-                            disabled={animating}
+                                type="submit"
+                                className={`px-6 py-2 rounded-lg font-bold transition-all duration-300 ${
+                                    animating
+                                    ? "bg-blueGray-200 text-blueGray-400 cursor-not-allowed"
+                                    : "bg-green-500 text-white hover:bg-green-600"
+                                }`}
+                                disabled={animating}
                             >
-                            Confirm & Donate
+                                Confirm & Donate
                             </button>
                         )}
                         </div>
