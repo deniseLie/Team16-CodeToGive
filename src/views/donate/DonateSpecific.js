@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Navbar from "components/Navbars/AuthNavbar.js";
 import Footer from "components/Footers/Footer.js";
 
@@ -170,6 +170,7 @@ export default function DonateSpecific() {
     // Animation handler
     const nextStep = () => {
         setAnimating(true);
+        window.scrollTo(0, 0); // scroll to top
         setTimeout(() => {
             setStep((prev) => Math.min(prev + 1, steps.length - 1));
             setAnimating(false);
@@ -178,6 +179,7 @@ export default function DonateSpecific() {
 
     const prevStep = () => {
         setAnimating(true);
+        window.scrollTo(0, 0); // scroll to top
         setTimeout(() => {
             setStep((prev) => Math.max(prev - 1, 0));
             setAnimating(false);

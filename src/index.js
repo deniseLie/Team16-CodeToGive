@@ -20,9 +20,11 @@ import AboutUs from "views/AboutUs";
 import Profile from "views/Profile.js";
 import DonateGeneral from "views/donate/DonateGeneral";
 import DonateSpecific from "views/donate/DonateSpecific";
+import ScrollToTop from "components/ScrollToTop";
 
 ReactDOM.render(
   <BrowserRouter>
+    <ScrollToTop />
     <Routes>
       {/* add routes with layouts */}
       <Route path="/admin" element={<Admin />} />

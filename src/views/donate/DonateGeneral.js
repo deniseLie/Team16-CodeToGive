@@ -122,6 +122,7 @@ export default function DonateGeneral() {
     // Animation handler
     const nextStep = () => {
         setAnimating(true);
+        window.scrollTo(0, 0); // scroll to top
         setTimeout(() => {
             setStep((prev) => Math.min(prev + 1, steps.length - 1));
             setAnimating(false);
@@ -130,6 +131,7 @@ export default function DonateGeneral() {
 
     const prevStep = () => {
         setAnimating(true);
+        window.scrollTo(0, 0); // scroll to top
         setTimeout(() => {
             setStep((prev) => Math.max(prev - 1, 0));
             setAnimating(false);
