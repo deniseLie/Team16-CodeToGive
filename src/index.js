@@ -27,7 +27,7 @@ ReactDOM.render(
     <ScrollToTop />
     <Routes>
       {/* add routes with layouts */}
-      <Route path="/admin" element={<Admin />} />
+      <Route path="/admin/*" element={<Admin />} />
       <Route path="/auth" element={<Auth />} />
 
       {/* add routes without layouts */}
@@ -38,6 +38,7 @@ ReactDOM.render(
       <Route path="/leaderboard" element={<Leaderboard />} />
       <Route path="/ourimpact" element={<OurImpact />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/admin" element={<Landing />} />
       <Route path="/" element={<Landing />} />
 
       {/* add redirect for first page */}
