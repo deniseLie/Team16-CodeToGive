@@ -5,6 +5,8 @@
   "repository": "https://github.com/creativetimofficial/notus-react",
   "license": "MIT",
   "dependencies": {
+    "@ffmpeg/ffmpeg": "^0.12.15",
+    "@ffmpeg/util": "^0.12.2",
     "@fortawesome/fontawesome-free": "5.15.3",
     "@headlessui/react": "^2.2.7",
     "@heroicons/react": "^2.2.0",
