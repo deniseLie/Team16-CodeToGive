@@ -104,7 +104,7 @@ export default function DonateGeneral({ type }) {
 
     const redirectToStory = (e, type, place) => {
         e.stopPropagation();
-        const url = `/${type}/${encodeURIComponent(place.name)}`;
+        const url = `/${type}/${encodeURIComponent(place.id)}`;
         window.open(url, "_blank", "noopener,noreferrer");
     };
 

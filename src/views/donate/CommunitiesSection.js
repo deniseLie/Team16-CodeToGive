@@ -32,7 +32,7 @@ export default function CommunitiesSection ({ partitions }) {
                         {imagesToShow.map((image, imgIndex) => (
                         <a
                             key={imgIndex}
-                            href={`/school/${partition.title.toLowerCase()}-${imgIndex + 1}`}
+                            href={`/${partition.title.toLowerCase()}/${imgIndex + 1}`}
                             className="block"
                         >
                             <img

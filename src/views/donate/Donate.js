@@ -28,12 +28,12 @@ export default function Donate() {
 
   const partitions = [
     { 
-      title : "Kindergarten",
+      title : "Schools",
       name  : schools.map(s => s.name),
       images: schools.map(s => s.image),
     },
     {
-      title : "District",
+      title : "Districts",
       name  : districts.map(d => d.name),
       images : districts.map(d => d.image),
     }

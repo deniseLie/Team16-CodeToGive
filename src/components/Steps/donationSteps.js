@@ -62,7 +62,7 @@ export const ChooseDistrictSchoolStep = ({
                                 <button
                                     type="button"
                                     className="mt-2 text-blue-500 underline text-sm"
-                                    onClick={(e) => redirectToStory(e, "district", district)}
+                                    onClick={(e) => redirectToStory(e, "districts", district)}
                                 >
                                     View Story
                                 </button>
@@ -113,7 +113,7 @@ export const ChooseDistrictSchoolStep = ({
                                         <button
                                             type="button"
                                             className="mt-2 text-blue-500 underline text-sm"
-                                            onClick={(e) => redirectToStory(e, "school", school)}
+                                            onClick={(e) => redirectToStory(e, "schools", school)}
                                         >
                                             View Story
                                         </button>
