@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
 import withReactContent from "sweetalert2-react-content";
 import { FaUniversity, FaQrcode, FaCreditCard, FaProjectDiagram } from "react-icons/fa";
@@ -7,14 +6,14 @@ import { FaUniversity, FaQrcode, FaCreditCard, FaProjectDiagram } from "react-ic
 // components
 import Navbar from "components/Navbars/AuthNavbar.js";
 import Footer from "components/Footers/Footer.js";
-
+import CommunitiesSection from "./CommunitiesSection"
 import DonateGeneral from "./DonateGeneral";
+import { getAll } from "utils/communitiesDB";
 
 export default function Donate() {
 
-  const navigate = useNavigate();
-
-  const [expandedPartitions, setExpandedPartitions] = useState({});
+  const [districts, setDistricts] = useState([]);
+  const [schools, setSchools] = useState([]);
 
   const MySwal = withReactContent(Swal);
 
@@ -29,36 +28,28 @@ export default function Donate() {
 
   const partitions = [
     { 
-      title : "Kindergarten",
-      images : [
-        "https://www.parents.com/thmb/TtV-9meq6KmSEDsW7ohEMDxDVCM=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/shutterstock_172261862-2--d36510500ca044e1bd9bb51f798b3141.jpg",
-        "https://www.parents.com/thmb/TtV-9meq6KmSEDsW7ohEMDxDVCM=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/shutterstock_172261862-2--d36510500ca044e1bd9bb51f798b3141.jpg",
-        "https://www.parents.com/thmb/TtV-9meq6KmSEDsW7ohEMDxDVCM=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/shutterstock_172261862-2--d36510500ca044e1bd9bb51f798b3141.jpg",
-        "https://www.parents.com/thmb/TtV-9meq6KmSEDsW7ohEMDxDVCM=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/shutterstock_172261862-2--d36510500ca044e1bd9bb51f798b3141.jpg",
-        "https://www.parents.com/thmb/TtV-9meq6KmSEDsW7ohEMDxDVCM=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/shutterstock_172261862-2--d36510500ca044e1bd9bb51f798b3141.jpg",
-      ]
+      title : "Schools",
+      name  : schools.map(s => s.name),
+      images: schools.map(s => s.image),
     },
     {
-      title : "District",
-      images : [
-        "https://www.parents.com/thmb/TtV-9meq6KmSEDsW7ohEMDxDVCM=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/shutterstock_172261862-2--d36510500ca044e1bd9bb51f798b3141.jpg",
-        "https://www.parents.com/thmb/TtV-9meq6KmSEDsW7ohEMDxDVCM=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/shutterstock_172261862-2--d36510500ca044e1bd9bb51f798b3141.jpg",
-        "https://www.parents.com/thmb/TtV-9meq6KmSEDsW7ohEMDxDVCM=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/shutterstock_172261862-2--d36510500ca044e1bd9bb51f798b3141.jpg",
-        "https://www.parents.com/thmb/TtV-9meq6KmSEDsW7ohEMDxDVCM=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/shutterstock_172261862-2--d36510500ca044e1bd9bb51f798b3141.jpg",
-        "https://www.parents.com/thmb/TtV-9meq6KmSEDsW7ohEMDxDVCM=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/shutterstock_172261862-2--d36510500ca044e1bd9bb51f798b3141.jpg",
-        "https://www.parents.com/thmb/TtV-9meq6KmSEDsW7ohEMDxDVCM=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/shutterstock_172261862-2--d36510500ca044e1bd9bb51f798b3141.jpg",
-      ]
+      title : "Districts",
+      name  : districts.map(d => d.name),
+      images : districts.map(d => d.image),
     }
   ]
 
+  // UseEffect
+  useEffect(() => {
+    const loadCommunities = async () => {
+      setDistricts(await getAll("districts"));
+      setSchools(await getAll("schools"));
+    };
+    loadCommunities();
+  }, []);
+
   // Function : Donate button click handler 
   const handleButtonClick = (type) => {
-    // if (type === 'general') {
-    //   navigate('/donate/general'); // Redirect to general donation page or show modal
-    // } else if (type === 'specific') {
-    //   navigate('/donate/specific'); // Redirect to specific project donation page or show modal
-    // }
-
     const title =
       type === 'general'
         ? 'Donate to General Fund'
@@ -78,13 +69,7 @@ export default function Donate() {
     })
   };
 
-  // Function : View More button
-  const handleViewMoreLess = (partitionTitle, showMore) => {
-    setExpandedPartitions((prev) => ({
-      ...prev,
-      [partitionTitle]: showMore,
-    }));
-  }; 
+  
 
   return (
     <>
@@ -215,62 +200,7 @@ export default function Donate() {
         </section>
 
         {/* Donation Type */}
-        <div className="mx-auto px-4">
-          <div className="bg-white rounded-xl shadow-xl p-10">
-
-            {/* Partition */}
-            { partitions.map((partition, index) => {
-              const showAll = expandedPartitions[partition.title] || false;
-              const imagesToShow = showAll ? partition.images : partition.images.slice(0, 4); // Show all images if expanded, otherwise show first 8
-              return (
-                <div key={index} className="mb-12">
-                  <h3 className="text-2xl font-semibold mb-6 text-blueGray-800 flex items-center gap-2">
-                    <FaProjectDiagram className="text-blue-400" />
-                    {partition.title}
-                  </h3>
-
-                  {/* Imagess */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                    {imagesToShow.map((image, imgIndex) => (
-                      <a
-                        key={imgIndex}
-                        href={`/school/${partition.title.toLowerCase()}-${imgIndex + 1}`}
-                        className="block"
-                      >
-                        <img
-                          src={image}
-                          alt={`Partition ${index + 1} Image ${imgIndex + 1}`}
-                          className="w-full h-56 object-cover rounded-sl hover:shadow-lg transition-shadow duration-200 cursor-pointer"
-                        />
-                      </a>
-                    ))}
-                  </div>
-
-                  {/* View More */}
-                  {partition.images.length > 4 && (
-                    <div className="mt-6 text-center">
-                      {!showAll ? (
-                        <button
-                          className="text-blue-500 underline font-semibold px-6 py-2 rounded hover:bg-blue-50 transition-all duration-200"
-                          onClick={() => handleViewMoreLess(partition.title, true)}
-                        >
-                          View more
-                        </button>
-                      ) : (
-                        <button
-                          className="text-blue-500 underline font-semibold px-6 py-2 rounded hover:bg-blue-50 transition-all duration-200"
-                          onClick={() => handleViewMoreLess(partition.title, false)}
-                        >
-                          View less
-                        </button>
-                      )}
-                    </div>
-                  )}
-                </div>
-              )
-            })}
-          </div>
-        </div>
+        <CommunitiesSection partitions={partitions} />
       </main>
       <Footer />
     </>

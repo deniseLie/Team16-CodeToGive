@@ -1,14 +1,29 @@
-import React from "react";
+import React, { useState, useEffect} from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 
+import { getAll } from "utils/communitiesDB";
+
 // Choose District & School Step
 export const ChooseDistrictSchoolStep = ({ 
-    step, districtsData, schoolsData, selectedDistricts, selectedSchools, handleDistrictChange, handleSchoolChange,
+    step, selectedDistricts, selectedSchools, handleDistrictChange, handleSchoolChange,
     redirectToStory
 }) => {
+    
+    const [districtsData, setDistricts] = useState([]);
+    const [schoolsData, setSchools] = useState([]);
+
+    // UseEffect
+    useEffect(() => {
+        const loadCommunities = async () => {
+            setDistricts(await getAll("districts"));
+            setSchools(await getAll("schools"));
+        };
+        loadCommunities();
+    }, []);
+
     return (        
         <div>
             {step.content}
@@ -47,7 +62,7 @@ export const ChooseDistrictSchoolStep = ({
                                 <button
                                     type="button"
                                     className="mt-2 text-blue-500 underline text-sm"
-                                    onClick={(e) => redirectToStory(e, "district", district)}
+                                    onClick={(e) => redirectToStory(e, "districts", district)}
                                 >
                                     View Story
                                 </button>
@@ -92,13 +107,13 @@ export const ChooseDistrictSchoolStep = ({
                                             />
                                         </div>
                                         <p className="text-sm text-blueGray-600 mt-2">{school.description}</p>
-                                        <p className="text-xs text-blueGray-400 mt-1">
+                                        {/* <p className="text-xs text-blueGray-400 mt-1">
                                             District: {school.district}
-                                        </p>
+                                        </p> */}
                                         <button
                                             type="button"
                                             className="mt-2 text-blue-500 underline text-sm"
-                                            onClick={(e) => redirectToStory(e, "school", school)}
+                                            onClick={(e) => redirectToStory(e, "schools", school)}
                                         >
                                             View Story
                                         </button>

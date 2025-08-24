@@ -19,6 +19,7 @@ import Donate from "views/donate/Donate.js";
 import AboutUs from "views/AboutUs";
 import Profile from "views/Profile.js";
 import DonateGeneral from "views/donate/DonateGeneral";
+import CommunityDetail from "views/community/CommunityDetail";
 import ScrollToTop from "components/ScrollToTop";
 
 ReactDOM.render(
@@ -37,6 +38,8 @@ ReactDOM.render(
       <Route path="/ourimpact" element={<OurImpact />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/admin" element={<Landing />} />
+      <Route path="/:type/:id" element={<CommunityDetail />} />
+
       <Route path="/" element={<Landing />} />
 
       {/* add redirect for first page */}

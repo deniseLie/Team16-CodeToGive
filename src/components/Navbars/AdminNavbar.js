@@ -188,6 +188,27 @@ export default function AdminNavbar() {
                   Media Upload
                 </Link>
               </li>
+              <li className="items-center">
+                <Link
+                  className={
+                    "text-xs uppercase py-3 font-bold block px-3 rounded-lg transition-all duration-200 " +
+                    (isActive("/admin/communities")
+                      ? "text-white bg-lightBlue-500 shadow-md"
+                      : "text-blueGray-700 hover:text-lightBlue-500 hover:bg-lightBlue-50")
+                  }
+                  to="/admin/communities"
+                >
+                  <i
+                    className={
+                      "fas fa-upload mr-2 text-sm " +
+                      (isActive("/admin/communities")
+                        ? "text-white"
+                        : "text-blueGray-300")
+                    }
+                  ></i>{" "}
+                  Communities
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
