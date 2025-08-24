@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
-import Navbar from "components/Navbars/AuthNavbar.js";
-import Footer from "components/Footers/Footer.js";
 import { ChooseDistrictSchoolStep, DonationTypeStep, AmountTypeStep, YourDetailsStep, PaymentMethodStep, ReviewStep } from "components/Steps/donationSteps";
 import donationSuccessAlert from "components/Alert/donationSuccessAlert";
+import { saveDonation } from 'utils/donationDB.js'
 
 // Simple fade animation using Tailwind
 const Fade = ({ show, children }) => (
@@ -26,10 +24,16 @@ export default function DonateGeneral({ type }) {
     const [amount, setAmount] = useState("");
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
+    const [visibleOnLeaderboard, setVisibleOnLeaderboard] = useState(true);
+    const [socialMedia, setSocialMedia] = useState({
+        facebook: "",
+        instagram: "",
+        linkedin: ""
+    });
     const [paymentMethod, setPaymentMethod] = useState("");
     
 
-    const steps = type == 'general' ? generalSteps : specificSteps;
+    const steps = type === 'general' ? generalSteps : specificSteps;
 
     // Animation handler
     const nextStep = () => {
@@ -50,11 +54,34 @@ export default function DonateGeneral({ type }) {
         }, 400);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Alert Confirmation
-        donationSuccessAlert();
+        // Prepare donation data
+        const donationData = {
+            type,
+            donationType,
+            amount,
+            name,
+            email,
+            visibleOnLeaderboard,
+            socialMedia,
+            paymentMethod,
+            selectedDistricts,
+            selectedSchools,
+            date: new Date().toISOString(),
+        };
+
+        try {
+            await saveDonation(donationData);
+            
+            // Alert Confirmation
+            donationSuccessAlert();
+        } catch (error) {
+            console.error("Donation save failed:", error);
+            alert("Sorry, there was a problem saving your donation locally. Please try again.");
+        }
+
     };
 
     // Handle district selection (multi-select)
@@ -115,11 +142,15 @@ export default function DonateGeneral({ type }) {
             case "YourDetailsStep":
                 return (
                     <YourDetailsStep
-                    step={steps[step]}
-                    name={name}
-                    email={email}
-                    setName={setName}
-                    setEmail={setEmail}
+                        step={steps[step]}
+                        name={name}
+                        email={email}
+                        visibleOnLeaderboard={visibleOnLeaderboard}
+                        socialMedia={socialMedia}
+                        setName={setName}
+                        setEmail={setEmail}
+                        setVisibleOnLeaderboard={setVisibleOnLeaderboard}
+                        setSocialMedia={setSocialMedia}
                     />
                 );
             case "PaymentMethodStep":
@@ -169,7 +200,7 @@ export default function DonateGeneral({ type }) {
             </div>
 
             {/* Step Content */}
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="lg:px-60">
                 <Fade show={!animating}>
                     
                     {renderStep()}
@@ -201,26 +232,35 @@ export default function DonateGeneral({ type }) {
                     </button>
                     {step < steps.length - 1 ? (
                         <button
-                        type="button"
-                        className={`px-6 py-2 rounded-lg font-bold transition-all duration-300 ${
-                            (step === 0 && !donationType) ||
-                            (step === 1 && !amount) ||
-                            (step === 2 && (!name || !email)) ||
-                            (step === 3 && !paymentMethod) ||
-                            animating
-                            ? "bg-blueGray-200 text-blueGray-400 cursor-not-allowed"
-                            : "bg-blue-500 text-white hover:bg-blue-600"
-                        }`}
-                        onClick={nextStep}
-                        disabled={
-                            (step === 0 && !donationType) ||
-                            (step === 1 && !amount) ||
-                            (step === 2 && (!name || !email)) ||
-                            (step === 3 && !paymentMethod) ||
-                            animating
-                        }
-                        >
-                        Next
+                            type="button"
+                            className={`px-6 py-2 rounded-lg font-bold transition-all duration-300 ${
+                                // Dynamic validation based on step and type
+                                (steps[step].component === "DonationTypeStep" && !donationType) ||
+                                (steps[step].component === "AmountTypeStep" && !amount) ||
+                                (steps[step].component === "YourDetailsStep" && (!name || !email)) ||
+                                (steps[step].component === "PaymentMethodStep" && !paymentMethod) ||
+                                (steps[step].component === "ChooseDistrictSchoolStep" &&
+                                    type === "specific" &&
+                                    selectedDistricts.length === 0 &&
+                                    selectedSchools.length === 0) ||
+                                animating
+                                ? "bg-blueGray-200 text-blueGray-400 cursor-not-allowed"
+                                : "bg-blue-500 text-white hover:bg-blue-600"
+                            }`}
+                            onClick={nextStep}
+                            disabled={
+                                (steps[step].component === "DonationTypeStep" && !donationType) ||
+                                (steps[step].component === "AmountTypeStep" && !amount) ||
+                                (steps[step].component === "YourDetailsStep" && (!name || !email)) ||
+                                (steps[step].component === "PaymentMethodStep" && !paymentMethod) ||
+                                (steps[step].component === "ChooseDistrictSchoolStep" &&
+                                    type === "specific" &&
+                                    selectedDistricts.length === 0 &&
+                                    selectedSchools.length === 0) ||
+                                animating
+                            }
+                            >
+                            Next
                         </button>
                     ) : (
                         <button

@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { FFmpeg } from "@ffmpeg/ffmpeg";
 import { fetchFile, toBlobURL } from '@ffmpeg/util';
 
-import { saveDiary } from "utils/db.js"
+import { saveDiary } from "utils/diaryDB.js"
 import { videoPublishedSuccessAlert } from 'components/Alert/websiteAlterSuccessAlert.js'
 
 export default function DiaryMaker() {

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 import withReactContent from "sweetalert2-react-content";
+import { FaUniversity, FaQrcode, FaCreditCard, FaProjectDiagram } from "react-icons/fa";
 
 // components
 import Navbar from "components/Navbars/AuthNavbar.js";
@@ -94,7 +95,7 @@ export default function Donate() {
             className="absolute top-0 w-full h-full bg-center bg-cover"
             style={{
               backgroundImage:
-                "url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80')",
+                "url('https://reach.org.hk/_assets/media/33ff5d5a08a9618e399d026217415484.jpg",
             }}
           >
             <span
@@ -131,7 +132,7 @@ export default function Donate() {
               y="0"
             >
               <polygon
-                className="text-blueGray-200 fill-current"
+                className="text-white fill-current"
                 points="2560 0 2560 100 0 100"
               ></polygon>
             </svg>
@@ -141,54 +142,63 @@ export default function Donate() {
         {/* Ways to Donate */}
         <section className="py-16">
           <div className="mx-auto px-4">
-            <div className="bg-white rounded-lg shadow p-8">
-              <h2 className="text-center text-2xl font-bold mb-12">Ways to Donate</h2>
-              <div className="flex flex-col md:flex-row justify-between">
-                {/* Donate by Ban transfer */}
-                <div>
-                  <h2 className="text-center text-2xl font-semibold mb-4">Donate by Bank Transfer</h2>
-                  <p className="mb-4">
-                    Account Name: {accountName}<br />
-                    Bank Address: {bankAddress}<br />
-                    Bank Code: {bankCode}<br />
-                    Account Number: {accountNumber}
+            <div className="bg-white rounded-xl p-10">
+              <h2 className="text-center text-3xl font-bold mb-12 text-blueGray-800">Ways to Donate</h2>
+              <div className="flex flex-col md:flex-row justify-between gap-8">
+                {/* Donate by Bank Transfer */}
+                <div className="flex-1 bg-blue-50 rounded-lg p-6 shadow hover:shadow-lg transition-all duration-200">
+                  <div className="flex items-center gap-2 mb-4">
+                    <FaUniversity className="text-blue-500 text-2xl" />
+                    <h2 className="text-xl font-semibold">Bank Transfer</h2>
+                  </div>
+                  <p className="mb-4 text-blueGray-700">
+                    <span className="font-bold">Account Name:</span> {accountName}<br />
+                    <span className="font-bold">Bank Address:</span> {bankAddress}<br />
+                    <span className="font-bold">Bank Code:</span> {bankCode}<br />
+                    <span className="font-bold">Account Number:</span> {accountNumber}
                   </p>
                 </div>
 
                 {/* Donate by FPS */}
-                <div>
-                  <h2 className="text-center text-2xl font-semibold mb-4">Donate by FPS</h2>
-                  <p className="mb-4">
-                    Please use the following details for FPS donations:<br />
-                    <strong>FPS ID:</strong> 12345678<br />
-                    <strong>FPS QR Code:</strong> <img src="https://via.placeholder.com/150" alt="FPS QR Code" />
+                <div className="flex-1 bg-green-50 rounded-lg p-6 shadow hover:shadow-lg transition-all duration-200">
+                  <div className="flex items-center gap-2 mb-4">
+                    <FaQrcode className="text-green-500 text-2xl" />
+                    <h2 className="text-xl font-semibold">FPS</h2>
+                  </div>
+                  <p className="mb-4 text-blueGray-700">
+                    <span className="font-bold">FPS ID:</span> 12345678<br />
+                    <span className="font-bold">FPS QR Code:</span>
                   </p>
                 </div>
 
                 {/* Donate by Alipay / Credit Card */}
-                <div>
-                  <h2 className="text-center text-2xl font-semibold mb-4">Donate by Alipay / Credit Card</h2>
-                  <p className="mb-4">
-                    Please use the following details for FPS donations:<br />
-                    <strong>FPS ID:</strong> 12345678<br />
-                    <strong>FPS QR Code:</strong> <img src="https://via.placeholder.com/150" alt="FPS QR Code" />
+                <div className="flex-1 bg-yellow-50 rounded-lg p-6 shadow hover:shadow-lg transition-all duration-200">
+                  <div className="flex items-center gap-2 mb-4">
+                    <FaCreditCard className="text-yellow-500 text-2xl" />
+                    <h2 className="text-xl font-semibold">Alipay / Credit Card</h2>
+                  </div>
+                  <p className="mb-4 text-blueGray-700">
+                    Donate securely via Alipay, Visa, or MasterCard.<br />
+                    <span className="font-bold">FPS ID:</span> 12345678<br />
                   </p>
                 </div>
               </div>
 
               {/* Buttons to donate */}
-              <div className="flex justify-center space-x-4 mt-6 gap-20">
-                <button className="bg-lightBlue-500 px-12 py-5 rounded hover:bg-lightBlue-600"
+              <div className="flex justify-center space-x-4 mt-8 gap-20">
+                <button className="bg-lightBlue-500 hover:bg-lightBlue-600 px-8 py-4 rounded rounded-lg shadow-lg flex items-center gap-2 transition-all duration-200"
                   onClick={(e) => handleButtonClick('general')}  
                 >
-                  <p className="text-lg font-bold text-white">
+                  <FaUniversity className="text-white text-xl" />
+                  <p className="text-xl font-bold text-white">
                     Donate General
                   </p>
                 </button>
-                <button className="bg-lightBlue-500 px-12 py-5 rounded hover:bg-lightBlue-600"
+                <button className="bg-green-500 hover:bg-green-600 px-8 py-4 rounded-lg shadow-lg flex items-center gap-2 transition-all duration-200"
                   onClick={(e) => handleButtonClick('specific')}
                 >
-                  <p className="text-lg font-bold text-white">
+                  <FaProjectDiagram className="text-white text-xl" />
+                  <p className="text-xl font-bold text-white">
                     Donate Specific Project
                   </p>
                 </button>
@@ -198,26 +208,29 @@ export default function Donate() {
 
           {/* Additional info */}
           <div className="mx-auto px-4 mt-8">
-            <div className="bg-gray-100 rounded-lg p-6">
-              <p className="text-sm text-gray-600">{additionalInfo}</p>
+            <div className="bg-gray-100 rounded-lg p-6 shadow">
+              <p className="text-sm text-blueGray-600">{additionalInfo}</p>
             </div>
           </div>
         </section>
 
         {/* Donation Type */}
         <div className="mx-auto px-4">
-          <div className="bg-white rounded-lg shadow p-8">
+          <div className="bg-white rounded-xl shadow-xl p-10">
 
             {/* Partition */}
             { partitions.map((partition, index) => {
               const showAll = expandedPartitions[partition.title] || false;
               const imagesToShow = showAll ? partition.images : partition.images.slice(0, 4); // Show all images if expanded, otherwise show first 8
               return (
-                <div key={index} className="mb-8">
-                  <h3 className="text-xl font-semibold mb-4">{partition.title}</h3>
+                <div key={index} className="mb-12">
+                  <h3 className="text-2xl font-semibold mb-6 text-blueGray-800 flex items-center gap-2">
+                    <FaProjectDiagram className="text-blue-400" />
+                    {partition.title}
+                  </h3>
 
                   {/* Imagess */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                     {imagesToShow.map((image, imgIndex) => (
                       <a
                         key={imgIndex}
@@ -227,7 +240,7 @@ export default function Donate() {
                         <img
                           src={image}
                           alt={`Partition ${index + 1} Image ${imgIndex + 1}`}
-                          className="w-full h-48 object-cover rounded-lg hover:shadow-lg transition-shadow duration-200 cursor-pointer"
+                          className="w-full h-56 object-cover rounded-sl hover:shadow-lg transition-shadow duration-200 cursor-pointer"
                         />
                       </a>
                     ))}
@@ -235,17 +248,17 @@ export default function Donate() {
 
                   {/* View More */}
                   {partition.images.length > 4 && (
-                    <div className="mt-4 text-center">
+                    <div className="mt-6 text-center">
                       {!showAll ? (
                         <button
-                          className="text-blue-500 underline font-semibold"
+                          className="text-blue-500 underline font-semibold px-6 py-2 rounded hover:bg-blue-50 transition-all duration-200"
                           onClick={() => handleViewMoreLess(partition.title, true)}
                         >
                           View more
                         </button>
                       ) : (
                         <button
-                          className="text-blue-500 underline font-semibold"
+                          className="text-blue-500 underline font-semibold px-6 py-2 rounded hover:bg-blue-50 transition-all duration-200"
                           onClick={() => handleViewMoreLess(partition.title, false)}
                         >
                           View less

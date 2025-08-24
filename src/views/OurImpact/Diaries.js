@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import DiaryViewer from "components/Diary/DiaryViewer";
-import { getAllDiaries } from "utils/db";
+import { getAllDiaries } from "utils/diaryDB";
 
 export default function DiariesSection() {
     const [diaries, setDiaries] = useState([]);
