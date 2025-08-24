@@ -114,8 +114,6 @@ export default function DonateGeneral({ type }) {
                 return (
                     <ChooseDistrictSchoolStep
                         step={steps[step]}
-                        districtsData={districtsData}
-                        schoolsData={schoolsData}
                         selectedDistricts={selectedDistricts}
                         selectedSchools={selectedSchools}
                         handleDistrictChange={handleDistrictChange}
@@ -431,43 +429,4 @@ const specificSteps = [
         </>
         ),
     },
-];
-
-const districtsData = [
-  {
-    name: "Central & Western",
-    image: "https://source.unsplash.com/400x300/?hongkong,central",
-    description: "A vibrant district in Hong Kong with a mix of business and culture.",
-  },
-  {
-    name: "Eastern",
-    image: "https://source.unsplash.com/400x300/?hongkong,eastern",
-    description: "Known for its residential areas and beautiful waterfront.",
-  },
-  {
-    name: "Central & Western",
-    image: "https://source.unsplash.com/400x300/?hongkong,central",
-    description: "A vibrant district in Hong Kong with a mix of business and culture.",
-  },
-  {
-    name: "Eastern",
-    image: "https://source.unsplash.com/400x300/?hongkong,eastern",
-    description: "Known for its residential areas and beautiful waterfront.",
-  },
-];
-
-const schoolsData = [
-  {
-    name: "Happy Kids Kindergarten",
-    image: "https://source.unsplash.com/400x300/?kindergarten,happy",
-    description: "A nurturing environment for early childhood education.",
-    district: "Central & Western",
-  },
-  {
-    name: "Sunshine Kindergarten",
-    image: "https://source.unsplash.com/400x300/?kindergarten,sunshine",
-    description: "Fostering creativity and growth for young learners.",
-    district: "Eastern",
-  },
-  // ...add more schools as needed
 ];
