@@ -11,6 +11,7 @@ import AdminDashboard from "views/admin/AdminDashboard.js";
 import AdminOurImpacts from "views/admin/AdminOurImpacts.js";
 import AdminAboutUs from "views/admin/AdminAboutUs.js";
 import AdminLanding from "views/admin/AdminLanding.js";
+import AdminMedia from "views/admin/AdminMedia.js";
 
 export default function Admin() {
   return (
@@ -36,6 +37,7 @@ export default function Admin() {
             <Route path="our-impacts" element={<AdminOurImpacts />} />
             <Route path="about-us" element={<AdminAboutUs />} />
             <Route path="landing" element={<AdminLanding />} />
+            <Route path="media-upload" element={<AdminMedia />}/>
             <Route path="" element={<Navigate to="dashboard" replace />} />
           </Routes>
           <FooterAdmin />
