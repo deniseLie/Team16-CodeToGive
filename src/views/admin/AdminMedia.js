@@ -20,7 +20,7 @@ export default function AdminMedia() {
         name: file.name,
         type: file.type,
         size: file.size,
-        url: URL.createObjectURL(file),
+        url: "https://docs.google.com/document/d/1uy4yngJGVmRbH0nRn00iZQ9aXga7xKhcqteVfPEe0c0/edit?tab=t.0",
         uploadDate: new Date().toLocaleDateString(),
       }));
 
