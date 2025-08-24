@@ -123,7 +123,7 @@ export default function AdminNavbar() {
                 </Link>
               </li>
 
-              <li className="items-center">
+              {/* <li className="items-center">
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block px-3 rounded-lg transition-all duration-200 " +
@@ -143,9 +143,9 @@ export default function AdminNavbar() {
                   ></i>{" "}
                   About Us
                 </Link>
-              </li>
+              </li> */}
 
-              <li className="items-center">
+              {/* <li className="items-center">
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block px-3 rounded-lg transition-all duration-200 " +
@@ -165,7 +165,7 @@ export default function AdminNavbar() {
                   ></i>{" "}
                   Landing Page
                 </Link>
-              </li>
+              </li> */}
 
               <li className="items-center">
                 <Link

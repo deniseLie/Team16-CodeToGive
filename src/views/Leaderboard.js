@@ -4,258 +4,137 @@ import React, { useState } from "react";
 // Sample data for different districts and schools with growth percentages
 const leaderboardData = {
   districts: {
-    "Central & Western": [
-      {
-        name: "Alice Johnson",
-        donations: 12,
-        amount: 1200,
-        growthPercentage: 15.2,
-      },
-      {
-        name: "Michael Chen",
-        donations: 10,
-        amount: 1100,
-        growthPercentage: 12.8,
-      },
-      { name: "Sarah Wong", donations: 8, amount: 950, growthPercentage: 9.5 },
-      { name: "David Lee", donations: 7, amount: 800, growthPercentage: 8.1 },
-      { name: "Emma Tang", donations: 6, amount: 750, growthPercentage: 7.3 },
-      { name: "Jason Liu", donations: 5, amount: 650, growthPercentage: 6.2 },
-      { name: "Rachel Ho", donations: 4, amount: 580, growthPercentage: 5.8 },
-      { name: "Kevin Ng", donations: 4, amount: 520, growthPercentage: 5.1 },
-    ],
-    Eastern: [
-      {
-        name: "Bob Smith",
-        donations: 15,
-        amount: 1500,
-        growthPercentage: 18.5,
-      },
-      {
-        name: "Lisa Chan",
-        donations: 11,
-        amount: 1200,
-        growthPercentage: 14.2,
-      },
-      { name: "James Liu", donations: 9, amount: 980, growthPercentage: 11.8 },
-      { name: "Rachel Kim", donations: 8, amount: 850, growthPercentage: 10.1 },
-      { name: "Peter Wu", donations: 7, amount: 720, growthPercentage: 8.9 },
-      { name: "Amy Chen", donations: 6, amount: 680, growthPercentage: 7.8 },
-      { name: "Tom Zhang", donations: 5, amount: 620, growthPercentage: 7.2 },
-      { name: "Sophie Lin", donations: 4, amount: 550, growthPercentage: 6.5 },
-    ],
-    Southern: [
-      {
-        name: "Charlie Lee",
-        donations: 13,
-        amount: 1350,
-        growthPercentage: 16.8,
-      },
-      { name: "Anna Lam", donations: 10, amount: 1050, growthPercentage: 12.5 },
-      {
-        name: "Kevin Zhang",
-        donations: 9,
-        amount: 920,
-        growthPercentage: 10.9,
-      },
-      { name: "Sophie Chen", donations: 8, amount: 800, growthPercentage: 9.6 },
-      { name: "Tony Ng", donations: 6, amount: 650, growthPercentage: 7.8 },
-      { name: "Helen Wang", donations: 5, amount: 590, growthPercentage: 7.1 },
-      { name: "Mark Tsui", donations: 4, amount: 510, growthPercentage: 6.2 },
-      { name: "Grace Yu", donations: 3, amount: 450, growthPercentage: 5.4 },
-    ],
-    "Wan Chai": [
-      {
-        name: "Denise Kim",
-        donations: 14,
-        amount: 1400,
-        growthPercentage: 17.2,
-      },
-      { name: "Robert Chu", donations: 9, amount: 980, growthPercentage: 11.8 },
-      { name: "Helen Yu", donations: 8, amount: 850, growthPercentage: 10.2 },
-      { name: "Mark Tsang", donations: 7, amount: 780, growthPercentage: 9.4 },
-      { name: "Grace Ho", donations: 6, amount: 680, growthPercentage: 8.1 },
-      { name: "Daniel Wong", donations: 5, amount: 600, growthPercentage: 7.2 },
-      { name: "Cindy Li", donations: 4, amount: 540, growthPercentage: 6.5 },
-      { name: "Alex Tam", donations: 3, amount: 480, growthPercentage: 5.8 },
-    ],
+    "Central & Western": {
+      growthPercentage: 12.4,
+      donors: [
+        { name: "Alice Johnson", donations: 12, amount: 1200 },
+        { name: "Michael Chen", donations: 10, amount: 1100 },
+        { name: "Sarah Wong", donations: 8, amount: 950 },
+        { name: "David Lee", donations: 7, amount: 800 },
+        { name: "Emma Tang", donations: 6, amount: 750 },
+        { name: "Jason Liu", donations: 5, amount: 650 },
+        { name: "Rachel Ho", donations: 4, amount: 580 },
+        { name: "Kevin Ng", donations: 4, amount: 520 },
+      ],
+    },
+    Eastern: {
+      growthPercentage: 15.8,
+      donors: [
+        { name: "Bob Smith", donations: 15, amount: 1500 },
+        { name: "Lisa Chan", donations: 11, amount: 1200 },
+        { name: "James Liu", donations: 9, amount: 980 },
+        { name: "Rachel Kim", donations: 8, amount: 850 },
+        { name: "Peter Wu", donations: 7, amount: 720 },
+        { name: "Amy Chen", donations: 6, amount: 680 },
+        { name: "Tom Zhang", donations: 5, amount: 620 },
+        { name: "Sophie Lin", donations: 4, amount: 550 },
+      ],
+    },
+    Southern: {
+      growthPercentage: 13.7,
+      donors: [
+        { name: "Charlie Lee", donations: 13, amount: 1350 },
+        { name: "Anna Lam", donations: 10, amount: 1050 },
+        { name: "Kevin Zhang", donations: 9, amount: 920 },
+        { name: "Sophie Chen", donations: 8, amount: 800 },
+        { name: "Tony Ng", donations: 6, amount: 650 },
+        { name: "Helen Wang", donations: 5, amount: 590 },
+        { name: "Mark Tsui", donations: 4, amount: 510 },
+        { name: "Grace Yu", donations: 3, amount: 450 },
+      ],
+    },
+    "Wan Chai": {
+      growthPercentage: 14.2,
+      donors: [
+        { name: "Denise Kim", donations: 14, amount: 1400 },
+        { name: "Robert Chu", donations: 9, amount: 980 },
+        { name: "Helen Yu", donations: 8, amount: 850 },
+        { name: "Mark Tsang", donations: 7, amount: 780 },
+        { name: "Grace Ho", donations: 6, amount: 680 },
+        { name: "Daniel Wong", donations: 5, amount: 600 },
+        { name: "Cindy Li", donations: 4, amount: 540 },
+        { name: "Alex Tam", donations: 3, amount: 480 },
+      ],
+    },
   },
   schools: {
-    "Happy Kids Kindergarten": [
-      {
-        name: "Ethan Brown",
-        donations: 18,
-        amount: 1800,
-        growthPercentage: 22.1,
-      },
-      {
-        name: "Olivia Davis",
-        donations: 12,
-        amount: 1250,
-        growthPercentage: 15.8,
-      },
-      {
-        name: "Lucas Miller",
-        donations: 10,
-        amount: 1050,
-        growthPercentage: 12.9,
-      },
-      { name: "Ava Wilson", donations: 9, amount: 920, growthPercentage: 11.3 },
-      {
-        name: "Mason Taylor",
-        donations: 7,
-        amount: 750,
-        growthPercentage: 9.2,
-      },
-      {
-        name: "Emma Johnson",
-        donations: 6,
-        amount: 680,
-        growthPercentage: 8.4,
-      },
-      { name: "Noah Garcia", donations: 5, amount: 620, growthPercentage: 7.6 },
-      { name: "Sophia Lee", donations: 4, amount: 560, growthPercentage: 6.9 },
-    ],
-    "Sunshine Kindergarten": [
-      {
-        name: "Isabella Garcia",
-        donations: 16,
-        amount: 1600,
-        growthPercentage: 19.8,
-      },
-      {
-        name: "William Johnson",
-        donations: 11,
-        amount: 1150,
-        growthPercentage: 14.2,
-      },
-      {
-        name: "Sophia Martinez",
-        donations: 10,
-        amount: 1000,
-        growthPercentage: 12.3,
-      },
-      {
-        name: "Alexander Brown",
-        donations: 8,
-        amount: 850,
-        growthPercentage: 10.5,
-      },
-      { name: "Mia Jones", donations: 7, amount: 720, growthPercentage: 8.9 },
-      {
-        name: "James Wilson",
-        donations: 6,
-        amount: 660,
-        growthPercentage: 8.1,
-      },
-      {
-        name: "Charlotte Davis",
-        donations: 5,
-        amount: 580,
-        growthPercentage: 7.2,
-      },
-      {
-        name: "Benjamin Miller",
-        donations: 4,
-        amount: 520,
-        growthPercentage: 6.4,
-      },
-    ],
-    "Little Stars Learning Center": [
-      {
-        name: "Benjamin Davis",
-        donations: 14,
-        amount: 1450,
-        growthPercentage: 17.9,
-      },
-      {
-        name: "Charlotte Wilson",
-        donations: 12,
-        amount: 1200,
-        growthPercentage: 14.8,
-      },
-      {
-        name: "Henry Moore",
-        donations: 9,
-        amount: 950,
-        growthPercentage: 11.7,
-      },
-      {
-        name: "Amelia Taylor",
-        donations: 8,
-        amount: 800,
-        growthPercentage: 9.9,
-      },
-      {
-        name: "Daniel Anderson",
-        donations: 6,
-        amount: 650,
-        growthPercentage: 8.0,
-      },
-      { name: "Lily Thomas", donations: 5, amount: 590, growthPercentage: 7.3 },
-      {
-        name: "Jackson White",
-        donations: 4,
-        amount: 530,
-        growthPercentage: 6.5,
-      },
-      {
-        name: "Chloe Harris",
-        donations: 3,
-        amount: 470,
-        growthPercentage: 5.8,
-      },
-    ],
-    "Rainbow Academy": [
-      {
-        name: "Victoria Thomas",
-        donations: 13,
-        amount: 1300,
-        growthPercentage: 16.1,
-      },
-      {
-        name: "Andrew Jackson",
-        donations: 10,
-        amount: 1050,
-        growthPercentage: 13.0,
-      },
-      {
-        name: "Abigail White",
-        donations: 9,
-        amount: 900,
-        growthPercentage: 11.1,
-      },
-      {
-        name: "Matthew Harris",
-        donations: 8,
-        amount: 820,
-        growthPercentage: 10.1,
-      },
-      {
-        name: "Emily Martin",
-        donations: 7,
-        amount: 700,
-        growthPercentage: 8.6,
-      },
-      {
-        name: "Ryan Thompson",
-        donations: 6,
-        amount: 640,
-        growthPercentage: 7.9,
-      },
-      { name: "Zoe Garcia", donations: 5, amount: 580, growthPercentage: 7.2 },
-      {
-        name: "Lucas Robinson",
-        donations: 4,
-        amount: 520,
-        growthPercentage: 6.4,
-      },
-    ],
+    "Happy Kids Kindergarten": {
+      growthPercentage: 18.5,
+      donors: [
+        { name: "Ethan Brown", donations: 18, amount: 1800 },
+        { name: "Olivia Davis", donations: 12, amount: 1250 },
+        { name: "Lucas Miller", donations: 10, amount: 1050 },
+        { name: "Ava Wilson", donations: 9, amount: 920 },
+        { name: "Mason Taylor", donations: 7, amount: 750 },
+        { name: "Emma Johnson", donations: 6, amount: 680 },
+        { name: "Noah Garcia", donations: 5, amount: 620 },
+        { name: "Sophia Lee", donations: 4, amount: 560 },
+      ],
+    },
+    "Sunshine Kindergarten": {
+      growthPercentage: 16.9,
+      donors: [
+        { name: "Isabella Garcia", donations: 16, amount: 1600 },
+        { name: "William Johnson", donations: 11, amount: 1150 },
+        { name: "Sophia Martinez", donations: 10, amount: 1000 },
+        { name: "Alexander Brown", donations: 8, amount: 850 },
+        { name: "Mia Jones", donations: 7, amount: 720 },
+        { name: "James Wilson", donations: 6, amount: 660 },
+        { name: "Charlotte Davis", donations: 5, amount: 580 },
+        { name: "Benjamin Miller", donations: 4, amount: 520 },
+      ],
+    },
+    "Little Stars Learning Center": {
+      growthPercentage: 15.3,
+      donors: [
+        { name: "Benjamin Davis", donations: 14, amount: 1450 },
+        { name: "Charlotte Wilson", donations: 12, amount: 1200 },
+        { name: "Henry Moore", donations: 9, amount: 950 },
+        { name: "Amelia Taylor", donations: 8, amount: 800 },
+        { name: "Daniel Anderson", donations: 6, amount: 650 },
+        { name: "Lily Thomas", donations: 5, amount: 590 },
+        { name: "Jackson White", donations: 4, amount: 530 },
+        { name: "Chloe Harris", donations: 3, amount: 470 },
+      ],
+    },
+    "Rainbow Academy": {
+      growthPercentage: 14.8,
+      donors: [
+        { name: "Victoria Thomas", donations: 13, amount: 1300 },
+        { name: "Andrew Jackson", donations: 10, amount: 1050 },
+        { name: "Abigail White", donations: 9, amount: 900 },
+        { name: "Matthew Harris", donations: 8, amount: 820 },
+        { name: "Emily Martin", donations: 7, amount: 700 },
+        { name: "Ryan Thompson", donations: 6, amount: 640 },
+        { name: "Zoe Garcia", donations: 5, amount: 580 },
+        { name: "Lucas Robinson", donations: 4, amount: 520 },
+      ],
+    },
   },
 };
 
 // Component for individual leaderboard card
-const LeaderboardCard = ({ title, data, type, icon, onViewMore }) => {
+const LeaderboardCard = ({
+  title,
+  data,
+  type,
+  icon,
+  onViewMore,
+  growthPercentage,
+}) => {
+  const getTopThreeColors = (index) => {
+    switch (index) {
+      case 0:
+        return "bg-yellow-100 border-yellow-400 text-yellow-800";
+      case 1:
+        return "bg-blue-50 border-blue-400 text-blue-800";
+      case 2:
+        return "bg-orange-100 border-orange-400 text-orange-800";
+      default:
+        return "bg-white border-gray-200 text-gray-700";
+    }
+  };
+
   const getRankIcon = (index) => {
     switch (index) {
       case 0:
@@ -279,7 +158,7 @@ const LeaderboardCard = ({ title, data, type, icon, onViewMore }) => {
       default:
         return (
           <div className="flex items-center justify-center w-10 h-10 bg-gray-500 text-white rounded-full shadow-md">
-            <i className="fa fa-heart text-sm"></i>
+            <span className="text-sm font-bold">{index + 1}</span>
           </div>
         );
     }
@@ -293,16 +172,24 @@ const LeaderboardCard = ({ title, data, type, icon, onViewMore }) => {
           type === "district" ? "bg-blue-500" : "bg-green-500"
         } text-white`}
       >
-        <div className="flex items-center">
-          <i className={`${icon} text-2xl mr-3`}></i>
-          <div>
-            <h3 className="text-lg font-bold">{title}</h3>
-            <p className="text-sm opacity-90">
-              {type === "district"
-                ? "District Leaderboard"
-                : "School Leaderboard"}
-            </p>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            <i className={`${icon} text-2xl mr-3`}></i>
+            <div>
+              <h3 className="text-lg font-bold">{title}</h3>
+              <p className="text-sm opacity-90">
+                {type === "district"
+                  ? "District Leaderboard"
+                  : "School Leaderboard"}
+              </p>
+            </div>
           </div>
+          {/* <div className="text-right">
+            <div className="bg-white bg-opacity-20 rounded-lg px-3 py-2">
+              <div className="text-sm opacity-90">Growth Rate</div>
+              <div className="text-lg font-bold">+{growthPercentage}%</div>
+            </div>
+          </div> */}
         </div>
       </div>
 
@@ -312,7 +199,9 @@ const LeaderboardCard = ({ title, data, type, icon, onViewMore }) => {
           {data.slice(0, 3).map((donor, index) => (
             <div
               key={donor.name}
-              className={`p-4 rounded-lg border-l-4 transition-all duration-200 hover:shadow-md`}
+              className={`p-4 rounded-lg border-l-4 transition-all duration-200 hover:shadow-md ${getTopThreeColors(
+                index
+              )}`}
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
@@ -328,19 +217,36 @@ const LeaderboardCard = ({ title, data, type, icon, onViewMore }) => {
                 </div>
                 <div className="text-right ml-4">
                   <p className="font-bold text-lg">${donor.amount}</p>
-                  <p className="text-xs text-green-600 mt-1">
-                    +{donor.growthPercentage}% growth
-                  </p>
                 </div>
               </div>
             </div>
           ))}
         </div>
 
+        {/* Growth Rate Display */}
+        <div className="mt-6 p-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg border border-green-200">
+          <div className="flex items-center justify-center">
+            <div className="text-center">
+              <div className="flex items-center justify-center mb-2">
+                <i className="fas fa-chart-line text-green-600 text-lg mr-2"></i>
+                <span className="text-sm font-semibold text-gray-700">
+                  Overall Growth Through Results
+                </span>
+              </div>
+              <div className="text-2xl font-bold text-green-600">
+                +{growthPercentage}%
+              </div>
+              <div className="text-xs text-gray-600 mt-1">
+                Positive impact achieved
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* View More Button */}
         <div className="mt-6 text-center">
           <button
-            onClick={() => onViewMore(title, data, type)}
+            onClick={() => onViewMore(title, data, type, growthPercentage)}
             className={`px-6 py-3 rounded-lg text-sm font-semibold transition-colors duration-200 ${
               type === "district"
                 ? "bg-blue-100 text-blue-700 hover:bg-blue-200"
@@ -356,7 +262,14 @@ const LeaderboardCard = ({ title, data, type, icon, onViewMore }) => {
 };
 
 // Full Leaderboard Modal Component
-const FullLeaderboardModal = ({ isOpen, onClose, title, data, type }) => {
+const FullLeaderboardModal = ({
+  isOpen,
+  onClose,
+  title,
+  data,
+  type,
+  growthPercentage,
+}) => {
   if (!isOpen) return null;
 
   const getRowColor = (index) => {
@@ -404,13 +317,15 @@ const FullLeaderboardModal = ({ isOpen, onClose, title, data, type }) => {
                 </p>
               </div>
             </div>
-            <button
-              onClick={onClose}
-              className="text-white hover:text-gray-200 transition-colors duration-200 p-2 hover:bg-white hover:bg-opacity-20 rounded-full"
-              title="Close modal"
-            >
-              <i className="fas fa-times text-2xl"></i>
-            </button>
+            <div className="flex items-center space-x-4">
+              <button
+                onClick={onClose}
+                className="text-white hover:text-gray-200 transition-colors duration-200 p-2 hover:bg-white hover:bg-opacity-20 rounded-full"
+                title="Close modal"
+              >
+                <i className="fas fa-times text-2xl"></i>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -426,14 +341,11 @@ const FullLeaderboardModal = ({ isOpen, onClose, title, data, type }) => {
                   <th className="text-left py-3 px-4 font-semibold text-gray-700">
                     Donor Name
                   </th>
-                  <th className="text-center py-3 px-4 font-semibold text-gray-700">
-                    Donations
-                  </th>
                   <th className="text-right py-3 px-4 font-semibold text-gray-700">
                     Amount Donated
                   </th>
-                  <th className="text-right py-3 px-4 font-semibold text-gray-700">
-                    Percentage Growth Through Results
+                  <th className="text-center py-3 px-4 font-semibold text-gray-700">
+                    Donations
                   </th>
                 </tr>
               </thead>
@@ -457,30 +369,15 @@ const FullLeaderboardModal = ({ isOpen, onClose, title, data, type }) => {
                         {donor.name}
                       </div>
                     </td>
-                    <td className="py-3 px-4 text-center">
-                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                        {donor.donations}
-                      </span>
-                    </td>
                     <td className="py-3 px-4 text-right">
                       <div className="font-bold text-lg text-gray-800">
                         ${donor.amount.toLocaleString()}
                       </div>
                     </td>
-                    <td className="py-3 px-4 text-right">
-                      <div className="flex items-center justify-end">
-                        <div className="text-right">
-                          <div className="font-bold text-green-600">
-                            +{donor.growthPercentage}%
-                          </div>
-                          <div className="text-xs text-gray-500">
-                            impact growth
-                          </div>
-                        </div>
-                        <div className="ml-2">
-                          <i className="fas fa-chart-line text-green-500"></i>
-                        </div>
-                      </div>
+                    <td className="py-3 px-4 text-center">
+                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                        {donor.donations}
+                      </span>
                     </td>
                   </tr>
                 ))}
@@ -489,14 +386,14 @@ const FullLeaderboardModal = ({ isOpen, onClose, title, data, type }) => {
           </div>
 
           {/* Summary Statistics */}
-          <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-blue-50 rounded-lg p-4 text-center">
+          <div className="mt-6 flex flex-wrap gap-4">
+            <div className="flex-1 min-w-0 bg-blue-50 rounded-lg p-4 text-center">
               <div className="text-2xl font-bold text-blue-600">
                 {data.reduce((sum, donor) => sum + donor.donations, 0)}
               </div>
               <div className="text-sm text-blue-800">Total Donations</div>
             </div>
-            <div className="bg-green-50 rounded-lg p-4 text-center">
+            <div className="flex-1 min-w-0 bg-green-50 rounded-lg p-4 text-center">
               <div className="text-2xl font-bold text-green-600">
                 $
                 {data
@@ -505,15 +402,17 @@ const FullLeaderboardModal = ({ isOpen, onClose, title, data, type }) => {
               </div>
               <div className="text-sm text-green-800">Total Amount</div>
             </div>
-            <div className="bg-purple-50 rounded-lg p-4 text-center">
+            <div className="flex-1 min-w-0 bg-purple-50 rounded-lg p-4 text-center">
               <div className="text-2xl font-bold text-purple-600">
-                {(
-                  data.reduce((sum, donor) => sum + donor.growthPercentage, 0) /
-                  data.length
-                ).toFixed(1)}
-                %
+                {data.length}
               </div>
-              <div className="text-sm text-purple-800">Average Growth</div>
+              <div className="text-sm text-purple-800">Contributors</div>
+            </div>
+            <div className="flex-1 min-w-0 bg-orange-50 rounded-lg p-4 text-center">
+              <div className="text-2xl font-bold text-orange-600">
+                +{growthPercentage}%
+              </div>
+              <div className="text-sm text-orange-800">Growth Rate</div>
             </div>
           </div>
 
@@ -561,14 +460,16 @@ export default function Leaderboard() {
     title: "",
     data: [],
     type: "",
+    growthPercentage: 0,
   });
 
-  const handleViewMore = (title, data, type) => {
+  const handleViewMore = (title, data, type, growthPercentage) => {
     setModalData({
       isOpen: true,
       title,
       data,
       type,
+      growthPercentage,
     });
   };
 
@@ -578,6 +479,7 @@ export default function Leaderboard() {
       title: "",
       data: [],
       type: "",
+      growthPercentage: 0,
     });
   };
 
@@ -713,7 +615,7 @@ export default function Leaderboard() {
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-8">
                   {activeTab === "districts" &&
                     Object.entries(leaderboardData.districts).map(
-                      ([district, donors]) => (
+                      ([district, { donors, growthPercentage }]) => (
                         <LeaderboardCard
                           key={district}
                           title={district}
@@ -721,13 +623,14 @@ export default function Leaderboard() {
                           type="district"
                           icon="fas fa-map-marker-alt"
                           onViewMore={handleViewMore}
+                          growthPercentage={growthPercentage}
                         />
                       )
                     )}
 
                   {activeTab === "schools" &&
                     Object.entries(leaderboardData.schools).map(
-                      ([school, donors]) => (
+                      ([school, { donors, growthPercentage }]) => (
                         <LeaderboardCard
                           key={school}
                           title={school}
@@ -735,6 +638,7 @@ export default function Leaderboard() {
                           type="school"
                           icon="fas fa-school"
                           onViewMore={handleViewMore}
+                          growthPercentage={growthPercentage}
                         />
                       )
                     )}
@@ -753,6 +657,7 @@ export default function Leaderboard() {
                     <div className="text-center">
                       <div className="text-3xl font-bold text-blue-600 mb-2">
                         {Object.values(leaderboardData.districts)
+                          .map(({ donors }) => donors)
                           .flat()
                           .reduce((sum, donor) => sum + donor.amount, 0)
                           .toLocaleString()}
@@ -764,6 +669,7 @@ export default function Leaderboard() {
                     <div className="text-center">
                       <div className="text-3xl font-bold text-green-600 mb-2">
                         {Object.values(leaderboardData.schools)
+                          .map(({ donors }) => donors)
                           .flat()
                           .reduce((sum, donor) => sum + donor.amount, 0)
                           .toLocaleString()}
@@ -775,9 +681,11 @@ export default function Leaderboard() {
                     <div className="text-center">
                       <div className="text-3xl font-bold text-purple-600 mb-2">
                         {Object.values(leaderboardData.districts)
+                          .map(({ donors }) => donors)
                           .flat()
                           .reduce((sum, donor) => sum + donor.donations, 0) +
                           Object.values(leaderboardData.schools)
+                            .map(({ donors }) => donors)
                             .flat()
                             .reduce((sum, donor) => sum + donor.donations, 0)}
                       </div>
@@ -798,6 +706,7 @@ export default function Leaderboard() {
         title={modalData.title}
         data={modalData.data}
         type={modalData.type}
+        growthPercentage={modalData.growthPercentage}
       />
     </>
   );
