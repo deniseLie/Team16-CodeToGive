@@ -1,16 +1,21 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import Swal from 'sweetalert2';
+import withReactContent from "sweetalert2-react-content";
 
 // components
 import Navbar from "components/Navbars/AuthNavbar.js";
 import Footer from "components/Footers/Footer.js";
+
+import DonateGeneral from "./DonateGeneral";
 
 export default function Donate() {
 
   const navigate = useNavigate();
 
   const [expandedPartitions, setExpandedPartitions] = useState({});
+
+  const MySwal = withReactContent(Swal);
 
   const header = "Donate to Reach";
   const supportingText = "Your support helps us make a difference in the lives of children and families in need.";
@@ -47,11 +52,29 @@ export default function Donate() {
 
   // Function : Donate button click handler 
   const handleButtonClick = (type) => {
-    if (type === 'general') {
-      navigate('/donate/general'); // Redirect to general donation page or show modal
-    } else if (type === 'specific') {
-      navigate('/donate/specific'); // Redirect to specific project donation page or show modal
-    }
+    // if (type === 'general') {
+    //   navigate('/donate/general'); // Redirect to general donation page or show modal
+    // } else if (type === 'specific') {
+    //   navigate('/donate/specific'); // Redirect to specific project donation page or show modal
+    // }
+
+    const title =
+      type === 'general'
+        ? 'Donate to General Fund'
+        : 'Donate to a Specific Project';
+    const text =
+      type === 'general'
+        ? 'Your donation supports all our programs.'
+        : 'Select a project and make a targeted impact.';
+    
+    MySwal.fire({
+      title,
+      text, 
+      html: <DonateGeneral type={type == 'general' ? 'general' : 'specific'} isPopup />,
+      width: "80%",
+      showConfirmButton: false,
+      showCloseButton: true,
+    })
   };
 
   // Function : View More button
