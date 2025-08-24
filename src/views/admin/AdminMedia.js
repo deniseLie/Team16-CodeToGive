@@ -20,7 +20,7 @@ export default function AdminMedia() {
         name: file.name,
         type: file.type,
         size: file.size,
-        url: "https://docs.google.com/document/d/1uy4yngJGVmRbH0nRn00iZQ9aXga7xKhcqteVfPEe0c0/edit?tab=t.0",
+        url: "https://drive.google.com/drive/folders/1HvP2YNG6Uw7gQnqMDc9dTYg5ffhPNhqC?usp=drive_link",
         uploadDate: new Date().toLocaleDateString(),
       }));
 
@@ -137,7 +137,7 @@ export default function AdminMedia() {
                   {selectedMedia.length > 0 && (
                     <>
                       <Link
-                        to="/admin/social-media-upload"
+                        to="https://drive.google.com/drive/folders/1HvP2YNG6Uw7gQnqMDc9dTYg5ffhPNhqC?usp=drive_link"
                         state={{
                           selectedMedia: uploadedMedia.filter((media) =>
                             selectedMedia.includes(media.id)
@@ -237,7 +237,7 @@ export default function AdminMedia() {
                   </div>
                   {/* Changed from label to Link */}
                   <Link
-                    to="/admin/upload-media"
+                    to="https://drive.google.com/drive/folders/1HvP2YNG6Uw7gQnqMDc9dTYg5ffhPNhqC?usp=drive_link"
                     className="bg-emerald-500 text-white px-6 py-3 rounded font-bold shadow hover:shadow-lg transition-all duration-150 inline-block"
                   >
                     <i className="fas fa-upload mr-2"></i>
