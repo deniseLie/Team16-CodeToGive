@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { FFmpeg } from "@ffmpeg/ffmpeg";
 import { fetchFile, toBlobURL } from '@ffmpeg/util';
 
+import { saveDiary } from "utils/db.js"
+import { videoPublishedSuccessAlert } from 'components/Alert/websiteAlterSuccessAlert.js'
 
 export default function DiaryMaker() {
     const [videoURL, setVideoURL] = useState(null);
@@ -140,6 +142,16 @@ export default function DiaryMaker() {
             }, 2000);
         }
     }
+
+    // Function Save Video to localstorage
+    const saveVid = async () => {
+        if (!videoURL) return;
+
+        const response = await fetch(videoURL);
+        const blob = await response.blob();
+        await saveDiary(blob);
+        videoPublishedSuccessAlert();
+    }
         
     return (
         <div>
@@ -164,6 +176,13 @@ export default function DiaryMaker() {
                     {videoURL && 
                         <video src={videoURL} controls />
                     }
+
+                    <button 
+                        onClick={saveVid}
+                        className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                    >
+                        Save Diary
+                    </button>
                 </>
             )}
         </div>
