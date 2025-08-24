@@ -35,10 +35,10 @@ export default function AdminOurImpacts() {
         },
         {
           id: 2,
-          title: "Meals Provided",
-          value: "50,000+",
-          description: "Nutritious meals distributed to families in need.",
-          icon: "fas fa-utensils",
+          title: "Education Provided",
+          value: "500+",
+          description: "Education provided to children in low-income families.",
+          icon: "fas fa-book",
           color: "bg-green-400",
         },
         {
