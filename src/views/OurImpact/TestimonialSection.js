@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import TestimonialSlider from "components/Slider/TestimonialSlider";
 
 // Example testimonial data

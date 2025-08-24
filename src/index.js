@@ -19,7 +19,6 @@ import Donate from "views/donate/Donate.js";
 import AboutUs from "views/AboutUs";
 import Profile from "views/Profile.js";
 import DonateGeneral from "views/donate/DonateGeneral";
-import DonateSpecific from "views/donate/DonateSpecific";
 import ScrollToTop from "components/ScrollToTop";
 
 ReactDOM.render(
@@ -34,7 +33,6 @@ ReactDOM.render(
       <Route path="/aboutus" element={<AboutUs />} />
       <Route path="/donate" element={<Donate />} />
       <Route path="/donate/general" element={<DonateGeneral />} />
-      <Route path="/donate/specific" element={<DonateSpecific />} />
       <Route path="/leaderboard" element={<Leaderboard />} />
       <Route path="/ourimpact" element={<OurImpact />} />
       <Route path="/profile" element={<Profile />} />
