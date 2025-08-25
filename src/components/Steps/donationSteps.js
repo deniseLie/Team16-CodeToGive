@@ -340,7 +340,7 @@ export const YourDetailsStep = ({
     }
 
     const connectPlatform = (platform) => {
-        const simulatedUsername = `fake-user`;
+        const simulatedUsername = `bob.smith`;
         setSocialMedia((prev) => ({
             ...prev,
             [platform]: simulatedUsername
